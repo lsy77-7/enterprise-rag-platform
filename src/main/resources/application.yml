@@ -1,0 +1,80 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: enterprise-rag-platform
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:enterprise_rag}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: justin0219
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+rag:
+  ai:
+    deepseek:
+      api-key: ${DEEPSEEK_API_KEY:}
+      base-url: https://api.deepseek.com
+      model: deepseek-chat
+    siliconflow:
+      api-key: ${SILICONFLOW_API_KEY:}
+      base-url: https://api.siliconflow.cn/v1
+      embedding-model: BAAI/bge-m3
+
+app:
+  storage:
+    documents-dir: data/documents
+  splitter:
+    chunk-size: 1000
+    overlap: 200
+  vector-store:
+    dir: data/vector-store
+
+embedding:
+  enabled: ${EMBEDDING_ENABLED:false}
+  base-url: ${EMBEDDING_BASE_URL:}
+  api-key: ${EMBEDDING_API_KEY:}
+  model: ${EMBEDDING_MODEL:}
+  dimension: ${EMBEDDING_DIMENSION:0}
+  auto-index: ${EMBEDDING_AUTO_INDEX:false}
+
+llm:
+  enabled: ${LLM_ENABLED:false}
+  base-url: ${LLM_BASE_URL:https://api.deepseek.com}
+  api-key: ${LLM_API_KEY:}
+  model: ${LLM_MODEL:deepseek-chat}

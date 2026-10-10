@@ -1,0 +1,2 @@
+ALTER TABLE conversation
+    ADD COLUMN manual_renamed BOOLEAN NOT NULL DEFAULT FALSE AFTER title;

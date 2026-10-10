@@ -1,0 +1,33 @@
+# Java / Maven
+target/
+.m2/
+*.class
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# 前端
+frontend/node_modules/
+frontend/dist/
+
+# 本地运行数据（上传文件与向量索引不提交）
+data/documents/*
+!data/documents/.gitkeep
+data/vector-store/*
+!data/vector-store/.gitkeep
+
+# 环境变量与密钥（只提交 .env.example 模板）
+.env
+.env.*
+!.env.example
+application-local.yml
+
+# 日志
+*.log
+logs/
+
+# 系统
+.DS_Store
+Thumbs.db
